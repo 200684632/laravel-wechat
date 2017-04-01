@@ -1,40 +1,133 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## 文档
+* https://laravel-china.org/docs/5.3
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Laravel-admin 文档
 
-## About Laravel
+http://z-song.github.io/laravel-admin/#/zh/
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+> [Admin Demo](http://120.26.143.106/admin)
+> 账号/密码:admin/admin
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 视频
+* https://www.laravist.com
+* http://www.imooc.com/search/?words=laravel
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+## Laravel 速查表
 
-## Learning Laravel
+https://cs.laravel-china.org/
+## laravel环境
+```
+php >5.6.*  可安装wamp3.0
+```
+## 安装
+```
+# 安装laravel
+composer require encore/laravel-admin "1.3.*"
+如果没有安装composer请先安装 
+安装步骤如下：
+http://jingyan.baidu.com/article/4f34706ed04013e386b56d72.html
+```
+## windows系统需要更改本地域名到你本地的laravel下的public文件下
+```
+具体操作：
+更改本地域名   修改c盘的hosts文件（添加127.0.0.1  你自己的网址（随便给））
+apache.conf文件下
+ 将Include conf/extra/httpd-vhosts.conf的#号去掉
+ 添加apache 文件下的httpd-vhosts.conf文件
+<VirtualHost *:80>
+    ServerAdmin webmaster@dummy-host2.example.com
+    DocumentRoot "你的本地路径制定到public文件下（绝对路径）"
+    ServerName www.leipu.com（你刚才修改的网址）
+    ErrorLog "logs/www.leipu.com-error.log（你的日志地址）"
+    CustomLog "logs/www.leipu.com-access.log（你的日志地址）" common
+</VirtualHost>
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+```
+## 安装laravel-admin
+```
+首先确保安装好了laravel，并且数据库连接设置正确。
+在config/app.php加入ServiceProvider:
+Encore\Admin\Providers\AdminServiceProvider::class
+然后运行下面的命令来发布资源：
+php artisan vendor:publish --tag=laravel-admin
+在该命令会生成配置文件config/admin.php，可以在里面修改安装的地址、数据库连接、以及表名。
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+然后运行下面的命令完成安装：
+php artisan admin:install
+启动服务后，在浏览器打开 （你自己刚才设置的网址）/admin/ ,使用用户名 admin 和密码 admin登陆.
+```
+## 安装或更新依赖包
+```apacheconfig
+composer install （安装就好）
+```
+```apacheconfig
+composer update
+```
 
-## Contributing
+## 配置
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+将项目根目录中的 `.env.example` 文件复制一份，并重命名为 `.env`。开发人员根据本机服务器或者正式环境的需求的不同，可自由修改 `.env` 中的环境变量。`.env` 文件已被忽略，不得被提交 git 中。
+```
+cp .env.example .env
+```
 
-## Security Vulnerabilities
+## 生成 APP_KEY
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+```
+php artisan key:generate 
+```
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## 生成资源软链接
+```
+php artisan storage:link
+```
+
+## 生成专题软链接
+```apacheconfig
+php artisan Zlink
+```
+
+## 目录权限
+```apacheconfig
+chmod -R 777 storage
+chmod -R 777 bootstrap/cache
+```
+
+## 创建 admin 后台
+```apacheconfig
+php artisan admin:install
+```
+
+## 常用命令
+
+#### 生成 Controller
+
+```
+php artisan make:controller UserController
+```
+
+#### 生成 Migrations
+```
+php artisan make:migration create_article --create=article
+
+php artisan make:migration alter_article
+```
+
+#### 生成 Middleware
+
+```bash
+php artisan make:middleware UserMiddleware
+```
+
+#### artisan 命令列表
+
+```$xslt
+php artisan list
+```
+
+
+## 坑
+
+* phpredis 扩展用源码包安装
+* [OneinStack如何支持fileinfo？](https://oneinstack.com/question/oneinstack-how-to-support-the-fileinfo/)
