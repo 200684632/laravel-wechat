@@ -31,7 +31,7 @@ http://jingyan.baidu.com/article/4f34706ed04013e386b56d72.html
 ```
 具体操作：
 更改本地域名   修改c盘的hosts文件（添加127.0.0.1  你自己的网址（随便给））
-apache.conf文件下
+apache/conf文件下
  将Include conf/extra/httpd-vhosts.conf的#号去掉
  添加apache 文件下的httpd-vhosts.conf文件
 <VirtualHost *:80>
