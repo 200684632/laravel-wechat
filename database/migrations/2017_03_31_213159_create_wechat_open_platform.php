@@ -17,7 +17,7 @@ class CreateWechatOpenPlatform extends Migration
         Schema::create('wechat_users', function (Blueprint $table) {
            $table->increments('id');
            $table->string('name')->default('')->comment('');
-           $table->string();
+           $table->timestamps();
         });
     }
 
