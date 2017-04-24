@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
     public function index(){
-        $wechat = new Application(config('wechat'));
-        var_dump($wechat);
         return '首页';
     }
 
